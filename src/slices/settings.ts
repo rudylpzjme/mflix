@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
+const defaultSelectedGeneres = ['All']
+
 const initialState = {
   isSideBarVisible: false,
-  selectedGenres: ['All'],
+  selectedGenres: defaultSelectedGeneres,
   menuOptions: [
     'All',
     'Drama',
@@ -32,7 +34,7 @@ const handleCheckGenre = (prevSelectedGenres: string[], genre: string): string[]
   const existingGenreIndex = selectedGenres.indexOf(genre)
   const allGenresIndex = selectedGenres.indexOf('All')
 
-  if (genre === 'All') return ['All']
+  if (genre === 'All') return defaultSelectedGeneres
   if (allGenresIndex !== -1) selectedGenres.splice(allGenresIndex, 1)
 
   if (existingGenreIndex !== -1) {
@@ -40,6 +42,8 @@ const handleCheckGenre = (prevSelectedGenres: string[], genre: string): string[]
   } else {
     selectedGenres.push(genre)
   }
+
+  if (selectedGenres.length === 0) return defaultSelectedGeneres
 
   return selectedGenres
 }

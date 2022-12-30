@@ -78,7 +78,7 @@ const MovieCard: React.FC<IMovie> = ({
           <ModalBody>
             <Flex direction='column' h='70vh'>
               <Image src={poster} objectFit='fill' h='80%' />
-              <Text color='black' textAlign='justify'>
+              <Text color='black' textAlign='justify' mt='20px'>
                 { rest.plot || 'Unknown plot' }
               </Text>
             </Flex>
