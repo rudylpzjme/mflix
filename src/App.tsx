@@ -1,38 +1,31 @@
-import * as React from "react"
+import * as React from 'react'
 import {
   ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+  Flex,
+} from '@chakra-ui/react'
+import {
+  Navigate,
+  Route,
+  Routes
+} from 'react-router-dom'
+import NavBar from './components/navbar/NavBar'
+import HomePage from './pages/HomePage'
+import theme from './theme'
+import SideBar from './components/sidebar/SideBar'
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
+    <Flex w='100%' h='100vh' direction='column'>
+      <NavBar h='20vh' />
+      <Flex direction='row' alignItems='flex-start' w='100%' h='80vh'>
+        <SideBar />
+        <Flex p={10} w='100%'>
+          <Routes>
+            <Route path='/' element={<Navigate to={'/home'} />} />
+            <Route path='/home' element={<HomePage />} />
+          </Routes>
+        </Flex>
+      </Flex>
+    </Flex>
   </ChakraProvider>
 )
