@@ -70,13 +70,18 @@ const MovieCard: React.FC<IMovie> = ({
             {raiting} / 10
           </Tag>
       }
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color='black' textAlign='center'>{rest.title || 'Unknown title'}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody color='black'>
-            { rest.plot || 'Unknown plot' }
+          <ModalBody>
+            <Flex direction='column' h='70vh'>
+              <Image src={poster} objectFit='fill' h='80%' />
+              <Text color='black' textAlign='justify'>
+                { rest.plot || 'Unknown plot' }
+              </Text>
+            </Flex>
           </ModalBody>
           <ModalFooter justifyContent='center'>
             <Button

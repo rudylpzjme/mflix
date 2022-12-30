@@ -1,13 +1,18 @@
+import React,
+{
+  useEffect
+} from 'react'
+import { CheckIcon } from '@chakra-ui/icons'
 import {
   Box,
   List,
+  ListIcon,
   ListItem,
 } from '@chakra-ui/react'
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { filter } from '../../slices/movies'
-import { selectSettingsState } from '../../slices/settings'
+import { checkGenre, selectSettingsState } from '../../slices/settings'
 
 export interface ISideBar {}
 
@@ -24,9 +29,13 @@ const SideBar: React.FC<ISideBar> = () => {
   const settings = useSelector(selectSettingsState)
   const dispatch = useDispatch()
 
-  const test = (query: string) => {
-    dispatch(filter(query))
+  const onClickHandler = (query: string) => {
+    dispatch(checkGenre(query))
   }
+
+  useEffect(() => {
+    dispatch(filter(settings.selectedGenres))
+  }, [dispatch, settings.selectedGenres])
 
   return (
     <Box
@@ -42,10 +51,12 @@ const SideBar: React.FC<ISideBar> = () => {
               p='15px'
               _hover={{ backgroundColor: 'grey' }}
               onClick={() => {
-                test(option)
-                console.log(option)
+                onClickHandler(option)
               }}
             >
+              { settings.selectedGenres.includes(option) &&
+                <ListIcon as={CheckIcon} color='green.500' />
+              }
               {option}
             </ListItem>
           ))

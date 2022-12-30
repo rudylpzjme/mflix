@@ -4,10 +4,11 @@ import { RootState } from '../store'
 
 const initialState = data
 
-const filterByGenre: any = (genre: string) => {
-  console.log(genre)
+const filterByGenres = (selectedGenres: string[]) => {
+  if (JSON.stringify(selectedGenres) === JSON.stringify(['All'])) return data
+
   return data.filter((movie) => {
-    return movie.genres.includes(genre)
+    return movie.genres.some(genre => selectedGenres.includes(genre))
   })
 }
 
@@ -15,8 +16,8 @@ const movies = createSlice({
   name: 'movies',
   initialState,
   reducers: {
-    filter(state, action: PayloadAction<string>) {
-      return filterByGenre(action.payload)
+    filter(state, action: PayloadAction<string[]>) {
+      return filterByGenres(action.payload)
     },
   }
 })
